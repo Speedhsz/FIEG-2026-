@@ -1,31 +1,78 @@
 // Mensagem de boas-vindas
-
 window.addEventListener("load", () => {
+
     setTimeout(() => {
         alert("🌎 Bem-vindo ao projeto Energia Acessível e Limpa - ODS 7!");
     }, 1000);
+
 });
 
-// Efeito ao rolar a página
+// ==========================
+// BOTÃO "COMECE AGORA"
+// ==========================
 
-const cards = document.querySelectorAll('.card');
+const botaoComecar = document.getElementById("mostrarSite");
+const conteudo = document.getElementById("conteudo");
 
-window.addEventListener('scroll', () => {
+if (botaoComecar && conteudo) {
+
+    botaoComecar.addEventListener("click", (e) => {
+
+        e.preventDefault();
+
+        conteudo.style.display = "block";
+
+        conteudo.animate(
+            [
+                {
+                    opacity: 0,
+                    transform: "translateY(80px)"
+                },
+                {
+                    opacity: 1,
+                    transform: "translateY(0)"
+                }
+            ],
+            {
+                duration: 900,
+                fill: "forwards"
+            }
+        );
+
+        conteudo.scrollIntoView({
+            behavior: "smooth"
+        });
+
+    });
+
+}
+
+// ==========================
+// EFEITO AO ROLAR
+// ==========================
+
+const cards = document.querySelectorAll(".card");
+
+window.addEventListener("scroll", () => {
 
     cards.forEach(card => {
 
         const posicao = card.getBoundingClientRect().top;
         const tela = window.innerHeight - 100;
 
-        if(posicao < tela){
-            card.classList.add('mostrar');
+        if (posicao < tela) {
+
+            card.classList.add("mostrar");
+
         }
 
     });
 
 });
 
-// Contador animado de economia
+// ==========================
+// CONTADOR
+// ==========================
 
 const contador = document.createElement("div");
 
@@ -47,13 +94,17 @@ const intervalo = setInterval(() => {
 
     document.getElementById("numero").textContent = numero;
 
-    if(numero >= 1000){
+    if (numero >= 1000) {
+
         clearInterval(intervalo);
+
     }
 
 }, 20);
 
-// Botão voltar ao topo
+// ==========================
+// BOTÃO TOPO
+// ==========================
 
 const botaoTopo = document.createElement("button");
 
@@ -65,10 +116,14 @@ document.body.appendChild(botaoTopo);
 
 window.addEventListener("scroll", () => {
 
-    if(window.scrollY > 300){
+    if (window.scrollY > 300) {
+
         botaoTopo.style.display = "block";
-    }else{
+
+    } else {
+
         botaoTopo.style.display = "none";
+
     }
 
 });
@@ -76,13 +131,17 @@ window.addEventListener("scroll", () => {
 botaoTopo.addEventListener("click", () => {
 
     window.scrollTo({
-        top:0,
-        behavior:"smooth"
+
+        top: 0,
+        behavior: "smooth"
+
     });
 
 });
 
-// Efeito nas cartas
+// ==========================
+// EFEITO NAS CARTAS
+// ==========================
 
 cards.forEach(card => {
 
@@ -91,8 +150,7 @@ cards.forEach(card => {
         const x = e.offsetX;
         const y = e.offsetY;
 
-        card.style.background =
-        `radial-gradient(circle at ${x}px ${y}px,
+        card.style.background = `radial-gradient(circle at ${x}px ${y}px,
         rgba(255,215,0,0.4),
         rgba(255,255,255,0.05))`;
 
@@ -100,14 +158,15 @@ cards.forEach(card => {
 
     card.addEventListener("mouseleave", () => {
 
-        card.style.background =
-        "rgba(255,255,255,0.08)";
+        card.style.background = "rgba(255,255,255,0.08)";
 
     });
 
 });
 
-// Simulador simples de energia
+// ==========================
+// SIMULADOR
+// ==========================
 
 const simulador = document.createElement("section");
 
@@ -116,12 +175,15 @@ simulador.classList.add("simulador");
 simulador.innerHTML = `
 <h2>🔋 Simulador de Consumo</h2>
 
-<input type="number"
+<input
+type="number"
 id="horas"
 placeholder="Horas por dia">
 
 <button id="calcular">
+
 Calcular
+
 </button>
 
 <h3 id="resultado"></h3>
@@ -129,18 +191,17 @@ Calcular
 
 document.body.appendChild(simulador);
 
-document.addEventListener("click",(e)=>{
+document.addEventListener("click", (e) => {
 
-if(e.target.id==="calcular"){
+    if (e.target.id === "calcular") {
 
-const horas =
-document.getElementById("horas").value;
+        const horas = document.getElementById("horas").value;
 
-const consumo = horas * 30 * 0.5;
+        const consumo = horas * 30 * 0.5;
 
-document.getElementById("resultado").innerHTML =
-`Consumo estimado: ${consumo.toFixed(2)} kWh/mês`;
+        document.getElementById("resultado").innerHTML =
+            `Consumo estimado: ${consumo.toFixed(2)} kWh/mês`;
 
-}
+    }
 
 });
